@@ -1,0 +1,43 @@
+{
+  "name": "swgohworker",
+  "version": "1.0.0",
+  "description": "slash command server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update": "chmod a+x updategitdependency.sh && ./updategitdependency.sh",
+    "build": "chmod a+x buildtestimage.sh && ./buildtestimage.sh c3pobot-old/swgohworker",
+    "prod": "chmod a+x buildprodimage.sh && ./buildprodimage.sh c3pobot-old/swgohworker"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/c3po-shard/swgohworker.git"
+  },
+  "author": "scuba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/c3po-shard/slash/issues"
+  },
+  "homepage": "https://gitlab.com/c3po-shard/slash#readme",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "botrequest": "github:c3pobot/botrequest",
+    "bottleneck": "^2.19.5",
+    "dbwrapper": "github:c3pobot-old/dbwrapper",
+    "discordhelper": "github:c3pobot-old/discordhelper",
+    "discordmsg": "github:c3pobot-old/discordmsg",
+    "express": "^4.18.2",
+    "got": "^11.8.5",
+    "join-images": "^1.1.5",
+    "json-array-sorter": "0.0.5",
+    "json2xls": "^0.1.2",
+    "moment": "^2.29.4",
+    "node-fetch": "^2.6.7",
+    "numeral": "^2.0.6",
+    "quewrapper": "github:c3pobot-old/quewrapper",
+    "stub": "github:c3pobot-old/stub",
+    "swgohformatter": "github:c3pobot-old/swgohformatter",
+    "swgohhelper": "github:c3pobot-old/swgohhelper",
+    "webimg": "github:c3pobot-old/webimg"
+  }
+}
