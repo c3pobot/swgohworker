@@ -20,7 +20,7 @@ module.exports = async(fInfo = {}, pObj = {}, fInfo2 = {})=>{
       res.content = 'Error getting image'
       let windowWidth = 152
       //if(webData.colLimit) windowWidth = (152 * +webData.colLimit)
-      factionImage = await HP.GetImg(webData.html, obj.id, windowWidth, false)
+      factionImage = await HP.GetImg(webData.html, null, windowWidth, false)
     }
     if(factionImage){
       res.content = null

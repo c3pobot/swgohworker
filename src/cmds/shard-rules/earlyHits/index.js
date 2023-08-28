@@ -34,7 +34,7 @@ module.exports = async(obj, shard, opt = [])=>{
       if(opt.find(x=>x.name == 'bottom-rank')) shard.rules['bottom-rank'] = null
     }
     await mongo.set('payoutServers', {_id: shard._id}, {rules: shard.rules})
-    ShowRules(obj, shard, opt)
+    await ShowRules(obj, shard, opt)
   }catch(e){
     console.error(e)
   }

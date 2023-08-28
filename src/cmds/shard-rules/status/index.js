@@ -68,8 +68,10 @@ module.exports = async(obj, shard, opt = [])=>{
       embedMsg.fields.push(enemySkips)
       msg2send.content = null
       msg2send.embeds = [embedMsg]
+      //console.log(embedMsg)
     }
-    HP.ReplyMsg(obj, msg2send)
+
+    await HP.ReplyMsg(obj, msg2send)
   }catch(e){
     console.error(e)
     HP.ReplyError(obj)

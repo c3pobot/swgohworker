@@ -1,4 +1,5 @@
 'use strict'
+const log = require('logger')
 const UpdateSyncGuilds = async()=>{
   try{
     let obj = await mongo.find('guilds', {sync: 1}, {_id: 1, sync: 1})
@@ -8,7 +9,7 @@ const UpdateSyncGuilds = async()=>{
     }
     setTimeout(UpdateSyncGuilds, 30000)
   }catch(e){
-    console.error(e);
+    log.error(e);
     setTimeout(UpdateSyncGuilds, 30000)
   }
 }
