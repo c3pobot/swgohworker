@@ -128,6 +128,11 @@
                 "description": "required ticket count to not get auto message"
               },
               {
+                "type": 5,
+                "name": "message",
+                "description": "Auto send messages to users (default: true)"
+              },
+              {
                 "type": 3,
                 "name": "allycode_option",
                 "description": "primary or alt allycode",

@@ -44,6 +44,14 @@ module.exports = async(obj, opt = [])=>{
       }
       let tempReset
       if(guild.auto) tempObj = guild.auto
+      if(opt.find(x=>x.name == 'message')){
+        let sendUserMessages = opt.find(x=>x.name == 'message').value
+        if(sendUserMessages){
+          tempObj.skipMessageSending = false
+        }else{
+          tempObj.skipMessageSending = true
+        }
+      }
       if(!tempObj.guildId) tempObj.guildId = pObj.guildId
       if(!tempObj.guildName) tempObj.guildName = pObj.guildName
       if(gObj) tempReset = new Date(gObj.guild.nextChallengesRefresh * 1000)
