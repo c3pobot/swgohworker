@@ -28,7 +28,6 @@ module.exports = async(job)=>{
       return res
     }
     if(!Cmds[obj.data.name]) Cmds[obj.data.name] = require(`src/cmds/${obj.data.name}`)
-    console.log(obj)
     res = await Cmds[obj.data.name](obj)
     if(!res) res = {status: 'ok'}
     //if(LOCAL_QUE_KEY && redis) await redis.del(`${LOCAL_QUE_KEY}-${obj.jobId}`)

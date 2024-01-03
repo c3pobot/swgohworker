@@ -11,6 +11,7 @@ module.exports = async(obj, opt = [])=>{
     let msg2send = {content: 'error getting data'}, effects, units
     let effect = HP.GetOptValue(opt, 'effect')
     let show = HP.GetOptValue(opt, 'show')
+    let skillType = HP.GetOptValue(opt, 'ability-type')
     if(!show) show = 'chars'
     if(show) show = show.trim()
     if(effect) effect = effect.trim()
@@ -25,6 +26,10 @@ module.exports = async(obj, opt = [])=>{
       units = units.filter(x=>x.skill?.descKey.toLowerCase().includes(effects.nameKey.toLowerCase()))
       if(units) units = await sorter([{column: 'nameKey', order: 'ascending'}], units)
     }
+    if(units?.length > 0 && skillType){
+      msg2send.content = 'There are no units for **'+effects.nameKey+'** for **'+skillType+'**'
+      units = units.filter(x=>x.skillId.startsWith(`${skillType}skill_`))
+    }
     if(units?.length > 0){
       let ships = units.filter(x=>x.combatType === 2)
       let chars = units.filter(x=>x.combatType === 1)
@@ -35,7 +40,9 @@ module.exports = async(obj, opt = [])=>{
       }
       if(show !== 'ships' && chars?.length > 0){
         embedMsg.title = 'Characters : '+effects.nameKey+' ('+chars.length+')'
-        embedMsg.description = effects.descKey+'\n```'
+        embedMsg.description = ''
+        if(skillType) embedMsg.description += `Ability Type : ${skillType}\n\n`
+        embedMsg.description += effects.descKey+'\n```'
         for(let i in chars) embedMsg.description += chars[i].nameKey+' : '+enumSkill(chars[i]?.skill?.id)+' : '+chars[i].skill?.nameKey+'\n'
         embedMsg.description += '```'
         msg2send.embeds.push(JSON.parse(JSON.stringify(embedMsg)))

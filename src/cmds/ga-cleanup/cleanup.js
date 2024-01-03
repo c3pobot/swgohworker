@@ -45,6 +45,12 @@ module.exports = async(obj = {}, opt = [], mode = '5v5')=>{
         }
       }
       if(exclude_gl) msg2send.content += ' exclude_gl'
+      if(!leader) pipeline.push({
+        $match:
+        {
+          noLead: true
+        }
+      })
       pipeline.push({
         $project: {
           _id: 1,
@@ -78,7 +84,7 @@ module.exports = async(obj = {}, opt = [], mode = '5v5')=>{
       }
       pipeline.push({ $skip: +skip})
       pipeline.push({ $limit: +battleLimit })
-      const payload = {_id: {$regex: searchString}, total: {$gte: +minBattles}, rate: {$gte: 0}}
+      const payload = {_id: {$regex: searchString}, total: {$gte: +minBattles}, rate: {$gte: 0} }
       if(exclude_gl) payload.attackGl = false
       if(singleUnit) payload.defendUnitCount = 1
       tempSquads = await mongo.aggregate('gaCounter', payload, pipeline)

@@ -161,6 +161,29 @@
             },
             {
               "type": 3,
+              "name": "ability-type",
+              "description": "filter results to an ability type",
+              "choices": [
+                {
+                  "name": "Basic",
+                  "value": "basic"
+                },
+                {
+                  "name": "Special",
+                  "value": "special"
+                },
+                {
+                  "name": "Unique",
+                  "value": "unique"
+                },
+                {
+                  "name": "Lead",
+                  "value": "leader"
+                }
+              ]
+            },
+            {
+              "type": 3,
               "name": "show",
               "description": "show chars/ships/both (defaults to chars)",
               "choices": [
