@@ -6,28 +6,29 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "update": "chmod a+x updategitdependency.sh && ./updategitdependency.sh",
-    "build": "chmod a+x buildtestimage.sh && ./buildtestimage.sh c3pobot-old/swgohworker",
-    "prod": "chmod a+x buildprodimage.sh && ./buildprodimage.sh c3pobot-old/swgohworker"
+    "build": "chmod a+x buildtestimage.sh && ./buildtestimage.sh c3pobot/swgohworker",
+    "prod": "chmod a+x buildprodimage.sh && ./buildprodimage.sh c3pobot/swgohworker"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/c3po-shard/swgohworker.git"
+    "url": "git+ssh://git@github.com:c3pobot/swgohworker.git"
   },
   "author": "scuba",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/c3po-shard/slash/issues"
+    "url": "https://github.com/c3pobot/swgohworker/issues"
   },
-  "homepage": "https://gitlab.com/c3po-shard/slash#readme",
+  "homepage": "https://github.com/c3pobot/swgohworker#readme",
   "dependencies": {
     "app-module-path": "^2.2.0",
     "botrequest": "github:c3pobot/botrequest",
-    "bottleneck": "^2.19.5",
-    "bull": "^4.11.3",
-    "cmd2array": "github:c3pobot-old/cmd2array",
-    "discordhelper": "github:c3pobot-old/discordhelper",
-    "discordmsg": "github:c3pobot-old/discordmsg",
+    "client-stub": "github:c3pobot/client-stub",
+    "cmd2array": "github:c3pobot/cmd2array",
+    "crypto-js": "^4.1.1",
+    "discordhelper": "github:c3pobot/discordhelper",
+    "discordmsg": "github:c3pobot/discordmsg",
     "express": "^4.18.2",
+    "google-auth-library": "^9.7.0",
     "got": "^11.8.5",
     "join-images": "^1.1.5",
     "json-array-sorter": "0.0.5",
@@ -35,13 +36,16 @@
     "logger": "github:c3pobot/logger",
     "moment": "^2.29.4",
     "mongoclient": "github:c3pobot/mongoclient",
+    "mqtt": "^5.5.1",
+    "node-cache": "^5.1.2",
     "node-fetch": "^2.6.7",
     "numeral": "^2.0.6",
+    "rabbitmq-client": "^4.5.3",
     "redisclient": "github:c3pobot/redisclient",
     "statcalc": "github:c3pobot/statcalc",
-    "stub": "github:c3pobot-old/stub",
-    "swgohformatter": "github:c3pobot-old/swgohformatter",
-    "swgohhelper": "github:c3pobot-old/swgohhelper",
-    "webimg": "github:c3pobot-old/webimg"
+    "swgohformatter": "github:c3pobot/swgohformatter",
+    "swgohhelper": "github:c3pobot/swgohhelper",
+    "uuid": "^9.0.1",
+    "webimg": "github:c3pobot/webimg"
   }
 }

@@ -1,18 +1,16 @@
 #!/bin/bash
 echo updating cmd2array
-npm i --package-lock-only github:c3pobot-old/cmd2array
+npm i --package-lock-only github:c3pobot/cmd2array
 echo updating discordhelper
-npm i --package-lock-only github:c3pobot-old/discordhelper
+npm i --package-lock-only github:c3pobot/discordhelper
 echo updating discordmsg
-npm i --package-lock-only github:c3pobot-old/discordmsg
-echo updating stub
-npm i --package-lock-only github:c3pobot-old/stub
-echo updating swgohformatter
-npm i --package-lock-only github:c3pobot-old/swgohformatter
+npm i --package-lock-only github:c3pobot/discordmsg
+echo updating client-stub
+npm i --package-lock-only github:c3pobot/client-stub
 echo updating webimg
-npm i --package-lock-only github:c3pobot-old/webimg
+npm i --package-lock-only github:c3pobot/webimg
 echo updating swgohhelper
-npm i --package-lock-only github:c3pobot-old/swgohhelper
+npm i --package-lock-only github:c3pobot/swgohhelper
 echo updating botrequest
 npm i --package-lock-only github:/c3pobot/botrequest
 echo updating statcalc

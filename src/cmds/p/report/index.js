@@ -1,13 +1,17 @@
 'use strict'
+const log = require('logger')
+const ReplyMsg = require('helpers/replyMsg')
+const swgohClient = require('swgohClient')
+const { GetPlayerAC } = require('helpers')
 module.exports = async(obj, opt = [])=>{
   try{
     let allyCode, pObj, msg2send = {content: 'You do not have allycode linked to discordId'}
-    const allyObj = await HP.GetPlayerAC(obj, opt)
+    const allyObj = await GetPlayerAC(obj, opt)
     if(allyObj && allyObj.allyCode) allyCode = allyObj.allyCode
     if(allyObj && allyObj.mentionError) msg2send.content = 'that user does not have allyCode linked to discordId'
     if(allyCode && !allyObj.mentionError){
       msg2send.content = '**'+allyCode+'** is an invalid allyCode'
-      pObj = await HP.FetchPlayer({allyCode: allyCode.toString()})
+      pObj = await swgohClient('fetchPlayer', {allyCode: allyCode.toString()})
     }
     if(pObj && pObj.allyCode){
       msg2send.content = null
@@ -68,9 +72,9 @@ module.exports = async(obj, opt = [])=>{
       }, 13, '::'))
       msg2send.embeds.push(baseMsg)
     }
-    HP.ReplyMsg(obj, msg2send)
+    await ReplyMsg(obj, msg2send)
   }catch(e){
-    console.log(e)
-    HP.ReplyError(obj)
+    log.error(e)
+    ReplyError(obj)
   }
 }

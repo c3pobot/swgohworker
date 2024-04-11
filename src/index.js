@@ -1,12 +1,13 @@
 'use strict'
+
 const log = require('logger')
 if(!process.env.CMD_QUE_NAME) process.env.CMD_QUE_NAME = 'swgoh'
 require('src/globals')
 //require('src/expressServer')
 const SaveSlashCmds = require('cmd2array')
 const UpdateBotSettings = require('./services/updateBotSettings')
-const CreateCmdMap = require('./services/createCmdMap')
-const UpdateGameData = require('./services/updateGameData')
+const { cmdMapReady } = require('./helpers/cmdMap')
+const updateGameData = require('./updateGameData')
 const UpdateSyncGuilds = require('./services/updateSyncGuilds')
 const CmdQue = require('./cmdQue')
 
@@ -42,7 +43,7 @@ const CheckApi = async()=>{
 }
 const CheckGameData = async()=>{
   try{
-    let status = await UpdateGameData()
+    let status = updateGameData.status()
     if(status){
       CheckCmdMap()
       return
@@ -56,7 +57,7 @@ const CheckGameData = async()=>{
 const CheckCmdMap = async()=>{
   try{
     if(process.env.POD_NAME?.toString().endsWith("0")) await SaveSlashCmds(baseDir+'/src/cmds', 'swgoh')
-    let status = await CreateCmdMap()
+    let status = cmdMapReady()
     if(status){
       await UpdateBotSettings()
       await UpdateSyncGuilds()

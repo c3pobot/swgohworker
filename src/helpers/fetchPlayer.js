@@ -1,4 +1,5 @@
 'use strict'
+const swgohClient = require('src/client')
 module.exports = async(obj)=>{
-  return await Client.post('fetchPlayer', obj, null)
+  return await swgohClient.post('fetchPlayer', obj, null)
 }

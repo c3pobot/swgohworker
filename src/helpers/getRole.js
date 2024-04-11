@@ -1,9 +1,11 @@
 'use strict'
+const { GetRoles } = require('./discordmsg')
 module.exports = async(sId, roleId)=>{
   try{
-    const roles = await MSG.GetRoles(sId)
-    if(roles && roles.length > 0 && roles.find(x=>x.id == roleId)) return roles.find(x=>x.id == roleId)
+    if(!sId || !roleId) return
+    let roles = await getRoles(sId)
+    if(roles?.length > 0 && roles.find(x=>x.id == roleId)) return roles.find(x=>x.id == roleId)
   }catch(e){
-    console.error(e)
+    throw(e)
   }
 }

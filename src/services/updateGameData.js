@@ -6,6 +6,12 @@ const updateData = async(version)=>{
   try{
     let obj = (await mongo.find('botSettings', {_id: 'gameData'}))[0]
     if(obj?.data && obj?.version === version){
+      /*
+      let clientStatus = Client.setGameData(obj.data)
+      if(clientStatus){
+        log.info(`Client gameData set to ${obj.version}`)
+      }
+      */
       let status = statCalc.setGameData(obj.data)
       if(status){
         log.info(`gameData set to ${obj.version}`)
@@ -15,6 +21,7 @@ const updateData = async(version)=>{
         gameDataReady = 1
         return true
       }
+
     }
   }catch(e){
     throw(e)

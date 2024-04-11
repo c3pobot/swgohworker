@@ -1,40 +1,42 @@
 'use strict'
 const log = require('logger')
-let CMD_QUE_NAME = process.env.CMD_QUE_NAME || 'swgoh'
-if(process.env.PRIVATE_WORKER) CMD_QUE_NAME += 'Private'
-const NUM_JOBS = +(process.env.NUM_JOBS || 1)
+const rabbitmq = require('helpers/rabbitmq')
 const cmdProcessor = require('./cmdProcessor')
-const processLocalQue = require('./processLocalQue')
-
-const Queue = require('bull')
-const queOpts = {
-  redis: {
-    host: process.env.REDIS_SERVER,
-    port: +process.env.REDIS_PORT,
-    password: process.env.REDIS_PASS
-  },
-  settings: {
-    maxStalledCount: 0
+let queName = process.env.WORKER_QUE_PREFIX || 'worker', consumer, workerType = process.env.WORKER_TYPE || 'swgoh', POD_NAME = process.env.POD_NAME
+queName += `.${workerType}`
+if(process.env.PRIVATE_WORKER) queName += '.private'
+const processMsg = async(msg = {})=>{
+  try{
+    if(!msg.body) return
+    return await cmdProcessor(msg.body)
+  }catch(e){
+    log.error(e)
+    return 1
   }
 }
-let que = new Queue(CMD_QUE_NAME, queOpts)
-module.exports.start = async()=>{
+const createWorker = async()=>{
   try{
-    await processLocalQue()
-    que.process('*', NUM_JOBS, cmdProcessor)
-    log.info(`started ${CMD_QUE_NAME} processing with ${NUM_JOBS} workers`)
+    if(consumer) await consumer.close()
+    consumer = rabbitmq.createConsumer({ concurrency: 1, qos: { prefetchCount: 1 }, queue: queName, queueOptions: { durable: true, arguments: { 'x-queue-type': 'quorum' } } }, processMsg)
+    consumer.on('error', (err)=>{
+      if(err?.code){
+        log.error(err.code)
+        log.error(err.message)
+        return
+      }
+      log.error(err)
+    })
+    log.info(`rabbitmq consumer started on ${POD_NAME}`)
+    return true
   }catch(e){
     throw(e)
   }
 }
-module.exports.removeJob = async(jobId)=>{
+module.exports.start = async() =>{
   try{
-    let job = await que.getJob(jobId)
-    if(job){
-      await job.moveToCompleted(null, true, true)
-      await job.remove()
-    }
+    let status = await createWorker()
+    return status
   }catch(e){
-    return
+    throw(e)
   }
 }

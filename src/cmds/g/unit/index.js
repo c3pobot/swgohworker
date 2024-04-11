@@ -40,7 +40,7 @@ module.exports = async(obj, opt = [])=>{
       msg2send.content = 'No one in the guild has **'+uInfo.nameKey+'**'+(rLevel ? ' at **R'+(rLevel - 2)+'** or higher':'')+(gLevel ? ' at **G'+gLevel+'** or higher':'')
       let unitsUnsorted
       if(uInfo.combatType == 1){
-        unitsUnsorted = gObj.member.filter(r=>r.rosterUnit?.some(u=>u.definitionId.startsWith(uInfo.baseId+':') && u.currentTier >= gLevel && u.relic.currentTier >= rLevel)).map(m=>{
+        unitsUnsorted = gObj.member.filter(r=>r.rosterUnit?.some(u=>u.definitionId?.startsWith(uInfo.baseId+':') && u.currentTier >= gLevel && u.relic.currentTier >= rLevel)).map(m=>{
           return Object.assign({}, {
             member: m.name,
             rarity: m.rosterUnit.find(x=>x.definitionId.startsWith(uInfo.baseId+':') && x.currentTier >= gLevel && x.relic.currentTier >= rLevel).currentRarity,

@@ -4,8 +4,9 @@ COPY package*.json ./
 RUN npm install --omit=dev
 
 FROM node:20-alpine AS app
+LABEL org.opencontainers.image.source https://github.com/c3pobot/swgohworker
 WORKDIR /app
-ENV NODE_PATH=/app
+ENV NODE_PATH=/app:/app/src
 RUN apk update && \
   # wrap process in --init in order to handle kernel signals
   # https://github.com/krallin/tini#using-tini
